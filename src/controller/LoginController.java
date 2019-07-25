@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -21,11 +16,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.Login;
 
-/**
- * FXML Controller class
- *
- * @author Tohar
- */
 public class LoginController implements Initializable {
 
     @FXML
@@ -43,7 +33,6 @@ public class LoginController implements Initializable {
     @FXML
     void actionBatal(ActionEvent event) {
         System.exit(0);
-
     }
 
     @FXML
