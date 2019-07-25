@@ -6,15 +6,10 @@
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -24,11 +19,11 @@ public class main extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/menu utama.fxml"));
         stage.setScene(new Scene(root));
         stage.setOnCloseRequest((event) -> System.exit(0));
-        stage.initStyle(StageStyle.UTILITY);
-        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.UTILITY);
+//        stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
             
     }

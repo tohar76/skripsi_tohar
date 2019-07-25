@@ -19,7 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import model.login;
+import model.Login;
 
 /**
  * FXML Controller class
@@ -48,7 +48,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void actionLogin(ActionEvent event) throws IOException {
-        login log = model.login.getLogin(username.getText());
+        Login log = Login.getLogin(username.getText());
         if (log !=null){
             if (log.getPassword().equals(password.getText())){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/menu utama.fxml"));
