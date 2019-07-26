@@ -3,27 +3,32 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ButtonBar?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KeluarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MasukController">
    <children>
       <Label layoutX="24.0" layoutY="10.0" prefHeight="37.0" prefWidth="147.0" text="OBAT MASUK">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="17.0" layoutY="51.0" promptText="Masukkan Nama Obat" />
-      <JFXTextField layoutX="18.0" layoutY="92.0" promptText="Masukkan Jenis Obat" />
-      <JFXTextField fx:id="Jumlah" layoutX="18.0" layoutY="127.0" promptText="Masukkan Stock" text="Jumlah" />
-      <JFXTextField fx:id="Harga" layoutX="18.0" layoutY="164.0" promptText="Masukkan Satuan" text="Harga" />
-      <JFXTreeTableView layoutX="272.0" layoutY="-1.0" prefHeight="400.0" prefWidth="355.0" />
-      <JFXButton fx:id="tambah" layoutX="12.0" layoutY="248.0" text="Tambah" />
-      <JFXButton fx:id="ubah" layoutX="77.0" layoutY="248.0" text="Ubah" />
-      <JFXButton fx:id="hapus" layoutX="135.0" layoutY="248.0" text="Hapus" />
-      <JFXButton fx:id="batal" layoutX="197.0" layoutY="248.0" text="Batal" />
-      <JFXDatePicker fx:id="Tanggal" layoutX="18.0" layoutY="201.0" />
+      <JFXComboBox fx:id="obatCombo" layoutX="18.0"  layoutY="50.0" prefWidth="140.0"  promptText="Pilih Obat" />
+      <JFXComboBox fx:id="suppCombo" layoutX="18.0"  layoutY="90.0" prefWidth="140.0"  promptText="Pilih Supplier" />
+      <JFXTextField layoutX="18.0" layoutY="130.0" promptText="Masukkan Jumlah"/>
+      <JFXDatePicker layoutX="18.0" layoutY="170.0" promptText="Tanggal Expired" />
+      <JFXTreeTableView fx:id="tableView" layoutX="360.0" layoutY="-1.0" prefHeight="400.0" prefWidth="500.0"/>
+      <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
+        <buttons>
+            <JFXButton fx:id="tambah"  style="-fx-background-color: red;" text="Tambah" />
+            <JFXButton fx:id="ubah"  style="-fx-background-color: red;" text="Ubah" />
+            <JFXButton fx:id="hapus"  style="-fx-background-color: red;" text="Hapus" />
+            <JFXButton fx:id="batal"  style="-fx-background-color: red;" text="Batal" />
+        </buttons>
+      </ButtonBar>
    </children>
 </AnchorPane>

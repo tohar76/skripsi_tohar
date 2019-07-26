@@ -7,9 +7,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ButtonBar?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KeluarController">
    <children>
       <Label layoutX="34.0" layoutY="20.0" prefHeight="37.0" prefWidth="153.0" text="OBAT KELUAR">
          <font>
@@ -20,11 +21,15 @@
       <JFXTextField layoutX="28.0" layoutY="102.0" promptText="Masukkan Jenis Obat" />
       <JFXTextField fx:id="Jumlah" layoutX="28.0" layoutY="137.0" promptText="Masukkan Stock" text="Jumlah" />
       <JFXTextField fx:id="Harga" layoutX="28.0" layoutY="174.0" promptText="Masukkan Satuan" text="Harga" />
-      <JFXTreeTableView layoutX="256.0" prefHeight="400.0" prefWidth="344.0" />
-      <JFXButton fx:id="tambah" layoutX="22.0" layoutY="258.0" text="Tambah" />
-      <JFXButton fx:id="ubah" layoutX="87.0" layoutY="258.0" text="Ubah" />
-      <JFXButton fx:id="hapus" layoutX="142.0" layoutY="258.0" text="Hapus" />
-      <JFXButton fx:id="batal" layoutX="207.0" layoutY="258.0" text="Batal" />
+      <JFXTreeTableView fx:id="tableView" layoutX="360.0" layoutY="-1.0" prefHeight="400.0" prefWidth="500.0" />
+      <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
+        <buttons>
+            <JFXButton fx:id="tambah"  style="-fx-background-color: red;" text="Tambah" />
+            <JFXButton fx:id="ubah"  style="-fx-background-color: red;" text="Ubah" />
+            <JFXButton fx:id="hapus"  style="-fx-background-color: red;" text="Hapus" />
+            <JFXButton fx:id="batal"  style="-fx-background-color: red;" text="Batal" />
+        </buttons>
+      </ButtonBar>
       <JFXDatePicker fx:id="Tanggal" layoutX="28.0" layoutY="211.0" />
    </children>
 </AnchorPane>

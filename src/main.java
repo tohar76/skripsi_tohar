@@ -23,7 +23,7 @@ public class main extends Application {
         stage.setScene(new Scene(root));
         stage.setOnCloseRequest((event) -> System.exit(0));
 //        stage.initStyle(StageStyle.UTILITY);
-//        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
             
     }

@@ -10,5 +10,9 @@ package controller;
  * @author Tohar
  */
 public class KeluarController {
+
+    void setData() {
+       
+    }
     
 }

@@ -6,7 +6,6 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -38,11 +37,11 @@ public class ObatController implements Initializable {
     @FXML
     private JFXTextField jenisField;
     @FXML
-    private JFXTextField stokField;
-    @FXML
     private JFXTextField satuanField;
     @FXML
-    private JFXDatePicker datePicker;
+    private JFXTextField hargaBeliField;
+    @FXML
+    private JFXTextField hargaJualField;
     @FXML
     private JFXTreeTableView<Obat> tableView;
     @FXML
@@ -59,30 +58,30 @@ public class ObatController implements Initializable {
         TreeTableColumn<Obat, Integer> kodeCol = new TreeTableColumn<>("Kode");
         TreeTableColumn<Obat, String> namaCol = new TreeTableColumn<>("Nama Obat");
         TreeTableColumn<Obat, String> jenisCol = new TreeTableColumn<>("Jenis");
-        TreeTableColumn<Obat, Integer> stokCol = new TreeTableColumn<>("Stok");
-        TreeTableColumn<Obat, Integer> satCol = new TreeTableColumn<>("Satuan");
-        TreeTableColumn<Obat, String> tglCol = new TreeTableColumn<>("Tanggal");
+        TreeTableColumn<Obat, String> satCol = new TreeTableColumn<>("Satuan");
+        TreeTableColumn<Obat, Integer> hargaBeliCol = new TreeTableColumn<>("Beli");
+        TreeTableColumn<Obat, Integer> hargaJualCol = new TreeTableColumn<>("Jual");
 
         kodeCol.setCellValueFactory(param -> param.getValue().getValue().kodeProperty());
         namaCol.setCellValueFactory(param -> param.getValue().getValue().nama_obatProperty());
         jenisCol.setCellValueFactory(param -> param.getValue().getValue().jenis_obatProperty());
-        stokCol.setCellValueFactory(param -> param.getValue().getValue().stokProperty());
         satCol.setCellValueFactory(param -> param.getValue().getValue().satuanProperty());
-        tglCol.setCellValueFactory(param -> param.getValue().getValue().tanggalProperty());
+        hargaBeliCol.setCellValueFactory(param -> param.getValue().getValue().harga_beliProperty());
+        hargaJualCol.setCellValueFactory(param -> param.getValue().getValue().harga_jualProperty());
 
-        kodeCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        kodeCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
         namaCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
-        jenisCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.4));
-        stokCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.4));
-        satCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.4));
-        tglCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        jenisCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        satCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
+        hargaBeliCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        hargaJualCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
 
         tableView.getColumns().add(kodeCol);
         tableView.getColumns().add(namaCol);
         tableView.getColumns().add(jenisCol);
-        tableView.getColumns().add(stokCol);
         tableView.getColumns().add(satCol);
-        tableView.getColumns().add(tglCol);
+        tableView.getColumns().add(hargaBeliCol);
+        tableView.getColumns().add(hargaJualCol);
         setTableRoot();
     }
 
@@ -93,20 +92,12 @@ public class ObatController implements Initializable {
         tableView.setShowRoot(false);
     }
 
-    private boolean validasi() {
-        return !namaField.getText().isEmpty()
-                && !jenisField.getText().isEmpty()
-                && !stokField.getText().isEmpty()
-                && !satuanField.getText().isEmpty()
-                && datePicker.getValue() != null;
-    }
-
     private void resetForm() {
         namaField.setText("");
         jenisField.setText("");
-        stokField.setText("");
         satuanField.setText("");
-        datePicker.setValue(null);
+        hargaBeliField.setText("");
+        hargaJualField.setText("");
     }
 
     void resetButton() {
@@ -128,10 +119,17 @@ public class ObatController implements Initializable {
             Obat obt = tableView.getSelectionModel().getSelectedItem().getValue();
             namaField.setText(obt.getNama_obat());
             jenisField.setText(obt.getJenis_obat());
-            stokField.setText(String.valueOf(obt.getStok()));
             satuanField.setText(String.valueOf(obt.getSatuan()));
             resetButton();
         }
+    }
+
+    private boolean validasi() {
+        return !namaField.getText().isEmpty()
+                && !jenisField.getText().isEmpty()
+                && !satuanField.getText().isEmpty()
+                && !hargaBeliField.getText().isEmpty()
+                && !hargaJualField.getText().isEmpty();
     }
 
     @FXML
@@ -155,9 +153,9 @@ public class ObatController implements Initializable {
             Obat obt = new Obat(
                     namaField.getText(),
                     jenisField.getText(),
-                    Integer.parseInt(stokField.getText()),
-                    Integer.parseInt(satuanField.getText()),
-                    new Date()
+                    satuanField.getText(),
+                    Integer.parseInt(hargaBeliField.getText()),
+                    Integer.parseInt(hargaJualField.getText())
             );
             if (obt.createObat()) {
                 alert.setContentText("Data Berhasil Disimpan");
@@ -170,7 +168,7 @@ public class ObatController implements Initializable {
             alert.show();
         }
     }
-    
+
     @FXML
     void hapusaction(ActionEvent event) {
         Obat obt = tableView.getSelectionModel().getSelectedItem().getValue();
@@ -197,41 +195,40 @@ public class ObatController implements Initializable {
             alert.close();
         }
     }
-    
+
     @FXML
     void ubahaction(ActionEvent event) {
-        if(validasi()){
+        if (validasi()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Edit Data Obat");
             Obat obt = tableView.getSelectionModel().getSelectedItem().getValue();
             obt.setNama_obat(namaField.getText());
             obt.setJenis_obat(jenisField.getText());
-            obt.setStok(Integer.parseInt(stokField.getText()));
-            obt.setSatuan(Integer.parseInt(satuanField.getText()));
+            obt.setSatuan(satuanField.getText());
+            obt.setHarga_beli(Integer.parseInt(hargaBeliField.getText()));
+            obt.setHarga_jual(Integer.parseInt(hargaJualField.getText()));
             alert.setHeaderText(null);
             alert.setContentText("Apakah anda yakin untuk mengedit data obat?");
             Optional result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    if(obt.updateObat()){
-                        Alert keluar = new Alert(Alert.AlertType.INFORMATION);
-                        keluar.setTitle("Data Obat");
-                        keluar.setHeaderText(null);
-                        keluar.setContentText("data berhasil di ubah");
-                        resetButton2();
-                        keluar.show();
-                        tableView.refresh();
-                    }
+            if (result.get() == ButtonType.OK) {
+                if (obt.updateObat()) {
+                    Alert keluar = new Alert(Alert.AlertType.INFORMATION);
+                    keluar.setTitle("Data Obat");
+                    keluar.setHeaderText(null);
+                    keluar.setContentText("data berhasil di ubah");
+                    resetButton2();
+                    keluar.show();
+                    tableView.refresh();
+                }
                 resetForm();
-            }
-            else {
+            } else {
                 alert.close();
-            }     
-        }  else {
+            }
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Data Obat");
             alert.setContentText("Data Tidak Lengkap");
             alert.show();
         }
     }
-
 }

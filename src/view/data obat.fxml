@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ButtonBar?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ObatController">
    <children>
@@ -15,15 +16,19 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="namaField" labelFloat="true" layoutX="17.0" layoutY="51.0" promptText="Masukkan Nama Obat" />
-      <JFXTextField fx:id="jenisField" labelFloat="true" layoutX="18.0" layoutY="92.0" promptText="Masukkan Jenis Obat" />
-      <JFXTextField fx:id="stokField" labelFloat="true" layoutX="18.0" layoutY="127.0" promptText="Masukkan Stock" />
-      <JFXTextField fx:id="satuanField" labelFloat="true" layoutX="18.0" layoutY="164.0" promptText="Masukkan Satuan" />
-      <JFXDatePicker fx:id="datePicker" layoutX="18.0" layoutY="200.0" promptText="Tanggal Expered" />
-      <JFXTreeTableView onMousePressed="#onmousepressed"  fx:id="tableView" layoutX="272.0" layoutY="-1.0" prefHeight="400.0" prefWidth="355.0" />
-      <JFXButton fx:id="tambah" onAction="#tambahaction"  layoutX="12.0" layoutY="248.0" text="Tambah" />
-      <JFXButton fx:id="ubah" onAction="#ubahaction"  layoutX="77.0" layoutY="248.0" text="Ubah" />
-      <JFXButton fx:id="hapus" onAction="#hapusaction"  layoutX="135.0" layoutY="248.0" text="Hapus" />
-      <JFXButton fx:id="batal" onAction="#batalaction"  layoutX="197.0" layoutY="248.0" text="Batal" />
+      <JFXTextField fx:id="namaField" labelFloat="true" layoutX="18.0" layoutY="50.0" promptText="Masukkan Nama Obat" />
+      <JFXTextField fx:id="jenisField" labelFloat="true" layoutX="18.0" layoutY="90.0" promptText="Masukkan Jenis Obat" />
+      <JFXTextField fx:id="satuanField" labelFloat="true" layoutX="18.0" layoutY="130.0" promptText="Masukkan Satuan" />
+      <JFXTextField fx:id="hargaBeliField" labelFloat="true" layoutX="18.0" layoutY="170.0" promptText="Masukkan Harga Beli" />
+      <JFXTextField fx:id="hargaJualField" labelFloat="true" layoutX="18.0" layoutY="210.0" promptText="Masukkan Harga Jual" />
+      <JFXTreeTableView onMousePressed="#onmousepressed"  fx:id="tableView" layoutX="360.0" layoutY="-1.0" prefHeight="400.0" prefWidth="500.0" />
+      <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
+        <buttons>
+            <JFXButton fx:id="tambah" onAction="#tambahaction" style="-fx-background-color: red;" text="Tambah" />
+            <JFXButton fx:id="ubah" onAction="#ubahaction" style="-fx-background-color: red;" text="Ubah" />
+            <JFXButton fx:id="hapus" onAction="#hapusaction" style="-fx-background-color: red;" text="Hapus" />
+            <JFXButton fx:id="batal" onAction="#batalaction" style="-fx-background-color: red;" text="Batal" />
+        </buttons>
+      </ButtonBar>
    </children>
 </AnchorPane>

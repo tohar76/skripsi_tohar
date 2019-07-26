@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -14,18 +9,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.sql2o.Connection;
 
-/**
- *
- * @author asus
- */
 public class Obat extends RecursiveTreeObject<Obat> {
 
     private int kode_obat;
     private String nama_obat;
     private String jenis_obat;
-    private int stok;
-    private int satuan;
-    private Date tanggal;
+    private String satuan;
+    private int harga_beli;
+    private int harga_jual;
 
     public static List<Obat> listFromDB() {
         try (Connection connection = DB.DB.sql2o.open()) {
@@ -34,9 +25,11 @@ public class Obat extends RecursiveTreeObject<Obat> {
         }
     }
 
-        public boolean createObat() {
+    public boolean createObat() {
         try (Connection connection = DB.DB.sql2o.open()) {
-            final String query = "INSERT INTO dataobat (nama_obat,jenis_obat,stok,satuan, tanggal) VALUE (:nama_obat, :jenis_obat,:stok,:satuan, :tanggal)";
+            final String query = "INSERT INTO dataobat "
+                    + "(nama_obat,jenis_obat,satuan, harga_beli, harga_jual) VALUE "
+                    + "(:nama_obat, :jenis_obat,:satuan, :harga_beli, :harga_jual)";
             connection.createQuery(query).bind(this).executeUpdate();
             return connection.getResult() > 0;
         }
@@ -53,20 +46,20 @@ public class Obat extends RecursiveTreeObject<Obat> {
     public boolean updateObat() {
         try (Connection connection = DB.DB.sql2o.open()) {
             final String query = "UPDATE dataobat SET "
-                    + "`nama_obat` = :nama_obat, `jenis_obat` = :jenis_obat, "
-                    + "`stok` = :stok, `satuan` = :satuan, `tanggal`= :tanggal "
-                    + "WHERE `kode_obat` = :kode_obat";
+                    + "nama_obat = :nama_obat, jenis_obat =:jenis_obat, "
+                    + "satuan =:satuan, harga_beli=:harga_beli, harga_jual=:harga_jual "
+                    + "WHERE kode_obat = :kode_obat";
             connection.createQuery(query).bind(this).executeUpdate();
-            return connection.getResult()>0;
+            return connection.getResult() > 0;
         }
     }
-    
-    public Obat(String nama_obat, String jenis_obat, int stok, int satuan, Date tanggal) {
+
+    public Obat(String nama_obat, String jenis_obat, String satuan, int harga_beli, int harga_jual) {
         this.nama_obat = nama_obat;
         this.jenis_obat = jenis_obat;
-        this.stok = stok;
         this.satuan = satuan;
-        this.tanggal = tanggal;
+        this.harga_beli = harga_beli;
+        this.harga_jual = harga_jual;
     }
 
     public int getKode_obat() {
@@ -93,28 +86,28 @@ public class Obat extends RecursiveTreeObject<Obat> {
         this.jenis_obat = jenis_obat;
     }
 
-    public int getStok() {
-        return stok;
-    }
-
-    public void setStok(int stok) {
-        this.stok = stok;
-    }
-
-    public int getSatuan() {
+    public String getSatuan() {
         return satuan;
     }
 
-    public void setSatuan(int satuan) {
+    public void setSatuan(String satuan) {
         this.satuan = satuan;
     }
 
-    public Date getTanggal() {
-        return tanggal;
+    public int getHarga_beli() {
+        return harga_beli;
     }
 
-    public void setTanggal(Date tanggal) {
-        this.tanggal = tanggal;
+    public void setHarga_beli(int harga_beli) {
+        this.harga_beli = harga_beli;
+    }
+
+    public int getHarga_jual() {
+        return harga_jual;
+    }
+
+    public void setHarga_jual(int harga_jual) {
+        this.harga_jual = harga_jual;
     }
 
     public ObjectProperty<Integer> kodeProperty() {
@@ -129,15 +122,20 @@ public class Obat extends RecursiveTreeObject<Obat> {
         return new SimpleStringProperty(jenis_obat);
     }
 
-    public ObjectProperty<Integer> stokProperty() {
-        return new SimpleObjectProperty(stok);
+    public StringProperty satuanProperty() {
+        return new SimpleStringProperty(satuan);
+    }
+    
+    public ObjectProperty<Integer> harga_beliProperty() {
+        return new SimpleObjectProperty(harga_beli);
+    }
+     
+     public ObjectProperty<Integer> harga_jualProperty() {
+        return new SimpleObjectProperty(harga_jual);
     }
 
-    public ObjectProperty<Integer> satuanProperty() {
-        return new SimpleObjectProperty(satuan);
-    }
-
-    public StringProperty tanggalProperty() {
-        return new SimpleStringProperty(tanggal.toString());
-    }
+    @Override
+    public String toString() {
+        return nama_obat;
+    }  
 }

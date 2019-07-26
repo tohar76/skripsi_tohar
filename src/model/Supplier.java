@@ -99,4 +99,10 @@ public class Supplier extends RecursiveTreeObject<Supplier> {
     public StringProperty telfProperty() {
         return new SimpleStringProperty(telf);
     }
+
+    @Override
+    public String toString() {
+        return nama_supplier;
+    }
+    
 }
