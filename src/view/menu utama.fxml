@@ -7,32 +7,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
-   <children>
-      <AnchorPane prefHeight="63.0" prefWidth="627.0" style="-fx-background-color: #e11818;">
-         <children>
-            <Label layoutX="93.0" prefHeight="47.0" prefWidth="455.0" text="Bidan Yanti Soetarno, Amd.Keb" textFill="#1e0101">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-            <Label layoutX="101.0" layoutY="51.0" prefHeight="26.0" prefWidth="431.0" text="Jalan Kalisari Raya Kalisari, Pasar Rebo, Jakarta Timur" textFill="#110101">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <VBox layoutX="-3.0" layoutY="76.0" prefHeight="326.0" prefWidth="134.0" spacing="20.0">
-         <children>
-            <JFXButton fx:id="dataobat" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Data Obat" />
-            <JFXButton fx:id="obatmasuk" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Obat Masuk" />
-            <JFXButton fx:id="obatkeluar" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Obat Keluar" />
-            <JFXButton fx:id="datasupplier" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Data Supplier" />
-            <JFXButton fx:id="laporan" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Laporan" />
-            <JFXButton fx:id="logout" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Log Out" />
-         </children>
-      </VBox>
-      <ScrollPane fx:id="scrollpane" layoutX="131.0" layoutY="76.0" prefHeight="326.0" prefWidth="497.0" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+    <children>
+        <AnchorPane prefHeight="63.0" prefWidth="1015" style="-fx-background-color: #e11818;">
+            <children>
+                <Label layoutX="93.0" prefHeight="47.0" prefWidth="455.0" text="Bidan Yanti Soetarno, Amd.Keb" textFill="#1e0101">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                </Label>
+                <Label layoutX="101.0" layoutY="51.0" prefHeight="26.0" prefWidth="431.0" text="Jalan Kalisari Raya Kalisari, Pasar Rebo, Jakarta Timur" textFill="#110101">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <VBox layoutX="-3.0" layoutY="76.0" prefHeight="326.0" prefWidth="134.0" spacing="20.0">
+            <children>
+                <JFXButton fx:id="dataobat" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Data Obat" />
+                <JFXButton fx:id="obatmasuk" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Obat Masuk" />
+                <JFXButton fx:id="obatkeluar" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Obat Keluar" />
+                <JFXButton fx:id="datasupplier" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Data Supplier" />
+                <JFXButton fx:id="laporan" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Laporan" />
+                <JFXButton fx:id="logout" onAction="#actionhandle" prefHeight="42.0" prefWidth="134.0" text="Log Out" />
+            </children>
+        </VBox>
+        <ScrollPane fx:id="scrollpane" layoutX="140.0" layoutY="76.0" prefHeight="500.0" prefWidth="875.0" />
+    </children>
 </AnchorPane>

@@ -53,14 +53,19 @@ public class MenuController implements Initializable{
     AnchorPane tampilan4;
     AnchorPane tampilan5;
     
+    MasukController masukCtrl;
+    KeluarController keluarCtrl;
+    
     @FXML
     void actionhandle(ActionEvent event) throws IOException {
         if (event.getSource() == dataobat){
             scrollpane.setContent(tampilan1);
         }else if (event.getSource() == obatmasuk){
-            scrollpane.setContent(tampilan2);    
+            scrollpane.setContent(tampilan2);
+            masukCtrl.setData();
         }else if (event.getSource() == obatkeluar) {
             scrollpane.setContent(tampilan3);
+            keluarCtrl.setData();
         }else if (event.getSource() == datasupplier){
             scrollpane.setContent(tampilan4);
         }else if (event.getSource() == laporan){
@@ -82,12 +87,18 @@ public class MenuController implements Initializable{
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            tampilan2 = FXMLLoader.load(getClass().getResource("/view/obat masuk.fxml"));
+            FXMLLoader fxml = new FXMLLoader();
+            fxml.setLocation(getClass().getResource("/view/obat masuk.fxml"));
+            tampilan2 = fxml.load();
+            masukCtrl = fxml.getController();
         } catch (IOException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            tampilan3 = FXMLLoader.load(getClass().getResource("/view/obat keluar.fxml"));
+            FXMLLoader fxml = new FXMLLoader();
+            fxml.setLocation(getClass().getResource("/view/obat keluar.fxml"));
+            tampilan3 = fxml.load();
+            keluarCtrl = fxml.getController();
         } catch (IOException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }

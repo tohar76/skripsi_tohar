@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import org.sql2o.Connection;
 
-/**
- *
- * @author Tohar
- */
-public class login extends RecursiveTreeObject<login>{
+
+public class Login extends RecursiveTreeObject<Login>{
     private String username;
     private String password;
     
-    public static login getLogin(String username) {
+    public static Login getLogin(String username) {
         try (Connection connection = DB.DB.sql2o.open()){
             final String query = "SELECT * FROM login WHERE `username`=:username";
-            return connection.createQuery(query).addParameter("username",username).executeAndFetchFirst(login.class);
+            return connection.createQuery(query).addParameter("username",username).executeAndFetchFirst(Login.class);
         }
     }
 
