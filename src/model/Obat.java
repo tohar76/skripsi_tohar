@@ -1,7 +1,6 @@
 package model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import java.util.Date;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -120,6 +119,8 @@ public class ObatController implements Initializable {
             namaField.setText(obt.getNama_obat());
             jenisField.setText(obt.getJenis_obat());
             satuanField.setText(String.valueOf(obt.getSatuan()));
+            hargaBeliField.setText(String.valueOf(obt.getHarga_beli()));
+            hargaJualField.setText(String.valueOf(obt.getHarga_jual()));
             resetButton();
         }
     }

@@ -19,7 +19,7 @@ public class main extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/menu utama.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
         stage.setScene(new Scene(root));
         stage.setOnCloseRequest((event) -> System.exit(0));
 //        stage.initStyle(StageStyle.UTILITY);
