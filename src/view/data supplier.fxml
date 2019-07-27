@@ -28,7 +28,7 @@
             <Insets left="30.0" right="50.0" />
          </padding>
       </VBox>
-      <JFXTreeTableView onMousePressed="#onmousepressed" fx:id="tableView" layoutX="360.0" layoutY="-1.0" prefHeight="400.0" prefWidth="500.0" />
+      <JFXTreeTableView fx:id="tableView" layoutX="360.0" layoutY="-1.0" onMousePressed="#onmousepressed" prefHeight="400.0" prefWidth="500.0" />
       <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
         <buttons>
             <JFXButton fx:id="tambah" onAction="#tambahaction" style="-fx-background-color: red;" text="Tambah" />
