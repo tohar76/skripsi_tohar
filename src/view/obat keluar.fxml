@@ -19,8 +19,9 @@
          </font>
       </Label>
       <JFXComboBox fx:id="obatCombo" onAction="#pilihobataction"  layoutX="18.0"  layoutY="50.0" prefWidth="140.0"  promptText="Pilih Obat" />
-      <JFXTextField fx:id="hargaField" layoutX="18.0" layoutY="90.0" editable="false"  promptText="Harga"/>
-      <JFXTextField fx:id="jumlahField" layoutX="18.0" layoutY="130.0" promptText="Masukkan Jumlah"/>
+      <JFXTextField fx:id="hargaField" layoutX="18.0" layoutY="90.0" editable="false" promptText="Harga"/>
+      <JFXTextField fx:id="stokField" layoutX="18.0" layoutY="130.0" editable="false" promptText="Stok"/>
+      <JFXTextField fx:id="jumlahField" layoutX="18.0" layoutY="170.0" promptText="Masukkan Jumlah"/>
       <JFXTreeTableView fx:id="tableView" onMousePressed="#onmousepressed"  layoutX="360.0" layoutY="-1.0" prefHeight="400.0" prefWidth="500.0" />
       <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
         <buttons>

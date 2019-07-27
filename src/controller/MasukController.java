@@ -8,6 +8,8 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,6 +28,7 @@ import model.ObatMasuk;
 import model.Supplier;
 
 public class MasukController implements Initializable {
+
     @FXML
     private JFXComboBox<Obat> obatCombo;
     @FXML
@@ -44,55 +47,58 @@ public class MasukController implements Initializable {
     private JFXButton hapus;
     @FXML
     private JFXButton batal;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TreeTableColumn<ObatMasuk, Integer> idCol = new TreeTableColumn<>("Id Masuk");
-        TreeTableColumn<ObatMasuk, Integer> kodeCol = new TreeTableColumn<>("Kode Obat");
+        TreeTableColumn<ObatMasuk, Integer> idCol = new TreeTableColumn<>("Id");
+        TreeTableColumn<ObatMasuk, String> namaObatCol = new TreeTableColumn<>("Nama Obat");
         TreeTableColumn<ObatMasuk, Integer> jumlahCol = new TreeTableColumn<>("Jumlah");
-        TreeTableColumn<ObatMasuk, Integer> idSupplierCol = new TreeTableColumn<>("Id Supplier");
+        TreeTableColumn<ObatMasuk, String> namaSuppCol = new TreeTableColumn<>("Nama Supplier");
         TreeTableColumn<ObatMasuk, Date> tglExpiredCol = new TreeTableColumn<>("Tgl Expired");
         TreeTableColumn<ObatMasuk, Date> tglMasukCol = new TreeTableColumn<>("Tgl Masuk");
 
         idCol.setCellValueFactory(param -> param.getValue().getValue().id_masukProperty());
-        kodeCol.setCellValueFactory(param -> param.getValue().getValue().kode_obatProperty());
+        namaObatCol.setCellValueFactory(param -> param.getValue().getValue().nama_obatProperty());
         jumlahCol.setCellValueFactory(param -> param.getValue().getValue().jumlahProperty());
-        idSupplierCol.setCellValueFactory(param -> param.getValue().getValue().id_supplierProperty());
+        namaSuppCol.setCellValueFactory(param -> param.getValue().getValue().nama_supplierProperty());
         tglExpiredCol.setCellValueFactory(param -> param.getValue().getValue().tgl_expiredProperty());
         tglMasukCol.setCellValueFactory(param -> param.getValue().getValue().tgl_masukProperty());
 
         idCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
-        kodeCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
-        jumlahCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
-        idSupplierCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
+        namaObatCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        jumlahCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
+        namaSuppCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         tglExpiredCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         tglMasukCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
 
         tableView.getColumns().add(idCol);
-        tableView.getColumns().add(kodeCol);
+        tableView.getColumns().add(namaObatCol);
         tableView.getColumns().add(jumlahCol);
-        tableView.getColumns().add(idSupplierCol);
+        tableView.getColumns().add(namaSuppCol);
         tableView.getColumns().add(tglExpiredCol);
         tableView.getColumns().add(tglMasukCol);
         setTableRoot();
+        resetButton2();
     }
-       
-    
+
     public void setData() {
         obatCombo.setItems(FXCollections.observableArrayList(Obat.listFromDB()));
         suppCombo.setItems(FXCollections.observableArrayList(Supplier.listFromDB()));
     }
-    
+
     private void setTableRoot() {
         ObservableList<ObatMasuk> obatOvList = FXCollections.observableArrayList(ObatMasuk.listFromDB());
         TreeItem<ObatMasuk> obatmasukTreeItem = new RecursiveTreeItem<>(obatOvList, RecursiveTreeObject::getChildren);
         tableView.setRoot(obatmasukTreeItem);
         tableView.setShowRoot(false);
-      
+
     }
 
     private void resetForm() {
+        obatCombo.getSelectionModel().clearSelection();
+        suppCombo.getSelectionModel().clearSelection();
         jumlahField.setText("");
+        expDatePicker.setValue(null);
     }
 
     void resetButton() {
@@ -111,14 +117,36 @@ public class MasukController implements Initializable {
 
     void ambilData() {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
-            ObatMasuk obt = tableView.getSelectionModel().getSelectedItem().getValue();
+            ObatMasuk obtMasuk = tableView.getSelectionModel().getSelectedItem().getValue();
+            Obat obt = obatCombo
+                    .getItems()
+                    .stream()
+                    .filter(obat -> obat.getKode_obat() == obtMasuk.getKode_obat())
+                    .findFirst()
+                    .orElse(null);
+            Supplier supp = suppCombo
+                    .getItems()
+                    .stream()
+                    .filter(spp -> spp.getId_supplier() == obtMasuk.getId_supplier())
+                    .findFirst()
+                    .orElse(null);
+            Date tgl = obtMasuk.getTgl_expired();
+            LocalDate localTgl = new Date(tgl.getYear(), tgl.getMonth(), tgl.getDate()).toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            obatCombo.getSelectionModel().select(obt);
+            suppCombo.getSelectionModel().select(supp);
+            jumlahField.setText(String.valueOf(obtMasuk.getJumlah()));
+            expDatePicker.setValue(localTgl);
             resetButton();
         }
     }
 
     private boolean validasi() {
-        // Ganti return nya
-        return false;
+        return obatCombo.getSelectionModel().getSelectedItem() != null
+                && suppCombo.getSelectionModel().getSelectedItem() != null
+                && !jumlahField.getText().isEmpty()
+                && expDatePicker.getValue() != null;
     }
 
     @FXML
@@ -126,29 +154,29 @@ public class MasukController implements Initializable {
         if (event.getClickCount() == 1) {
             ambilData();
         }
-       
+
     }
 
     @FXML
     void batalaction(ActionEvent event) {
-         resetForm();
+        resetForm();
         resetButton2();
-       
     }
 
     @FXML
     void tambahaction(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("ObatMasuk");
+        alert.setTitle("Obat Masuk");
         if (validasi()) {
+            Date tgl = java.util.Date.from(expDatePicker.getValue().atStartOfDay()
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant());
             ObatMasuk obt = new ObatMasuk(
-                    obatCombo.getItems(),
-        suppCombo.getItems(),
-                    //id_masuk.getText(),
-                    //jenisField.getText(),
-                    //satuanField.getText(),
-                    Integer.parseInt(jumlahField.getText())
-                    //Integer.parseInt(hargaJualField.getText())
+                    obatCombo.getSelectionModel().getSelectedItem().getKode_obat(),
+                    Integer.parseInt(jumlahField.getText()),
+                    suppCombo.getSelectionModel().getSelectedItem().getId_supplier(),
+                    tgl,
+                    new Date()
             );
             if (obt.createObatMasuk()) {
                 alert.setContentText("Data Berhasil Disimpan");
@@ -191,6 +219,39 @@ public class MasukController implements Initializable {
 
     @FXML
     void ubahaction(ActionEvent event) {
-        
+        if (validasi()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Edit Data Obat Masuk");
+            ObatMasuk obt = tableView.getSelectionModel().getSelectedItem().getValue();
+            obt.setKode_obat(obatCombo.getValue().getKode_obat());
+            obt.setId_supplier(suppCombo.getValue().getId_supplier());
+            obt.setJumlah(Integer.parseInt(jumlahField.getText()));
+            Date tgl = java.util.Date.from(expDatePicker.getValue().atStartOfDay()
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant());
+            obt.setTgl_expired(tgl);
+            alert.setHeaderText(null);
+            alert.setContentText("Apakah anda yakin untuk mengedit data obat masuk?");
+            Optional result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                if (obt.updateObatMasuk()) {
+                    Alert keluar = new Alert(Alert.AlertType.INFORMATION);
+                    keluar.setTitle("Data Obat Masuk");
+                    keluar.setHeaderText(null);
+                    keluar.setContentText("data berhasil di ubah");
+                    resetButton2();
+                    keluar.show();
+                    setTableRoot();
+                }
+                resetForm();
+            } else {
+                alert.close();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Data Obat Masuk");
+            alert.setContentText("Data Tidak Lengkap");
+            alert.show();
+        }
     }
 }

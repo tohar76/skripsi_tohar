@@ -9,7 +9,7 @@ import javafx.beans.property.StringProperty;
 import org.sql2o.Connection;
 
 public class Obat extends RecursiveTreeObject<Obat> {
-
+    
     private int kode_obat;
     private String nama_obat;
     private String jenis_obat;
@@ -17,11 +17,36 @@ public class Obat extends RecursiveTreeObject<Obat> {
     private int harga_beli;
     private int harga_jual;
 
+    //Ambil Semua Data Obat Dari Database
     public static List<Obat> listFromDB() {
         try (Connection connection = DB.DB.sql2o.open()) {
             final String query = "SELECT * FROM dataobat";
             return connection.createQuery(query).executeAndFetch(Obat.class);
         }
+    }
+    
+    //Ambil Obat Berdasarkan Obat Masuk
+    public static Obat getObat(ObatMasuk obtMasuk) {
+        return listFromDB()
+                .stream()
+                .filter(obat -> obat.kode_obat == obtMasuk.getKode_obat())
+                .findFirst()
+                .orElse(null);
+    }
+    
+    //Ambil Obat Berdasarkan Obat Keluar
+    public static Obat getObat(ObatKeluar obtKeluar) {
+        return listFromDB()
+                .stream()
+                .filter(obat -> obat.kode_obat == obtKeluar.getKode_obat())
+                .findFirst()
+                .orElse(null);
+    }
+    
+    public int getStock() {
+        int countMasuk = ObatMasuk.getObatMasuk(this).stream().mapToInt(ObatMasuk::getJumlah).sum();
+        int countKeluar = ObatKeluar.getObatKeluar(this).stream().mapToInt(ObatKeluar::getJumlah).sum();
+        return countMasuk - countKeluar;
     }
 
     public boolean createObat() {
@@ -119,6 +144,10 @@ public class Obat extends RecursiveTreeObject<Obat> {
 
     public StringProperty jenis_obatProperty() {
         return new SimpleStringProperty(jenis_obat);
+    }
+    
+    public ObjectProperty<Integer> stockProperty() {
+        return new SimpleObjectProperty(getStock());
     }
 
     public StringProperty satuanProperty() {

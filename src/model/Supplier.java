@@ -15,11 +15,21 @@ public class Supplier extends RecursiveTreeObject<Supplier> {
     String alamat;
     String telf;
 
+    //Ambil Semua Data Obat Dari Database
     public static List<Supplier> listFromDB() {
         try (Connection connection = DB.DB.sql2o.open()) {
             final String query = "SELECT * FROM datasupplier";
             return connection.createQuery(query).executeAndFetch(Supplier.class);
         }
+    }
+    
+    //Ambil Obat Berdasarkan Obat Masuk
+    public static Supplier getSupplier(ObatMasuk obtMasuk) {
+        return listFromDB()
+                .stream()
+                .filter(supp -> supp.id_supplier == obtMasuk.getId_supplier())
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean createSupplier() {

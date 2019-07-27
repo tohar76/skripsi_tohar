@@ -23,13 +23,14 @@ import javafx.scene.input.MouseEvent;
 import model.Obat;
 import model.ObatKeluar;
 
-public class KeluarController implements Initializable{
+public class KeluarController implements Initializable {
+
     @FXML
-    
-    
     private JFXComboBox<Obat> obatCombo;
     @FXML
     private JFXTextField hargaField;
+    @FXML
+    private JFXTextField stokField;
     @FXML
     private JFXTextField jumlahField;
     @FXML
@@ -42,38 +43,39 @@ public class KeluarController implements Initializable{
     private JFXButton hapus;
     @FXML
     private JFXButton batal;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TreeTableColumn<ObatKeluar, Integer> idCol = new TreeTableColumn<>("Id Keluar");
-        TreeTableColumn<ObatKeluar, Integer> kodeCol = new TreeTableColumn<>("Kode Obat");
+        TreeTableColumn<ObatKeluar, Integer> idCol = new TreeTableColumn<>("Id");
+        TreeTableColumn<ObatKeluar, String> namaObatCol = new TreeTableColumn<>("Nama Obat");
         TreeTableColumn<ObatKeluar, Integer> hrgCol = new TreeTableColumn<>("Harga");
         TreeTableColumn<ObatKeluar, Integer> jumlahCol = new TreeTableColumn<>("Jumlah");
         TreeTableColumn<ObatKeluar, Date> tglCol = new TreeTableColumn<>("Tgl Keluar");
-        
+
         idCol.setCellValueFactory(param -> param.getValue().getValue().id_keluarProperty());
-        kodeCol.setCellValueFactory(param -> param.getValue().getValue().kode_obatProperty());
+        namaObatCol.setCellValueFactory(param -> param.getValue().getValue().nama_obatProperty());
         hrgCol.setCellValueFactory(param -> param.getValue().getValue().hargaProperty());
         jumlahCol.setCellValueFactory(param -> param.getValue().getValue().jumlahProperty());
         tglCol.setCellValueFactory(param -> param.getValue().getValue().tgl_keluarProperty());
-        
-        idCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
-        kodeCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+
+        idCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        namaObatCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         hrgCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
-        jumlahCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
+        jumlahCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         tglCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
 
         tableView.getColumns().add(idCol);
-        tableView.getColumns().add(kodeCol);
+        tableView.getColumns().add(namaObatCol);
         tableView.getColumns().add(hrgCol);
         tableView.getColumns().add(jumlahCol);
         tableView.getColumns().add(tglCol);
-        
+
         setTableRoot();
+        resetButton2();
     }
-    
+
     void setData() {
-       obatCombo.setItems(FXCollections.observableArrayList(Obat.listFromDB()));
+        obatCombo.setItems(FXCollections.observableArrayList(Obat.listFromDB()));
     }
 
     private void setTableRoot() {
@@ -84,6 +86,7 @@ public class KeluarController implements Initializable{
     }
 
     private void resetForm() {
+        obatCombo.getSelectionModel().clearSelection();
         hargaField.setText("");
         jumlahField.setText("");
     }
@@ -96,33 +99,42 @@ public class KeluarController implements Initializable{
     }
 
     private void resetButton2() {
-        tambah.setDisable(true);
-        ubah.setDisable(false);
-        hapus.setDisable(false);
-        batal.setDisable(false);
+        tambah.setDisable(false);
+        ubah.setDisable(true);
+        hapus.setDisable(true);
+        batal.setDisable(true);
     }
 
     void ambilData() {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
-            ObatKeluar obt = tableView.getSelectionModel().getSelectedItem().getValue();
-            
+            ObatKeluar obtKeluar = tableView.getSelectionModel().getSelectedItem().getValue();
+            Obat obt = obatCombo
+                    .getItems()
+                    .stream()
+                    .filter(obat -> obat.getKode_obat() == obtKeluar.getKode_obat())
+                    .findFirst()
+                    .orElse(null);
+            obatCombo.getSelectionModel().select(obt);
+            hargaField.setText(String.valueOf(obt.getHarga_jual()));
+            jumlahField.setText(String.valueOf(obtKeluar.getJumlah()));
             resetButton();
         }
     }
 
     private boolean validasi() {
-        // Ganti return nya
-        return false;
+        return obatCombo.getSelectionModel().getSelectedItem() != null
+                && !jumlahField.getText().isEmpty();
     }
 
     @FXML
     void pilihobataction(ActionEvent event) {
-       Obat obt = obatCombo.getValue();
-       if (obt != null){
-           hargaField.setText(String.valueOf(obt.getHarga_jual()));           
-       }
+        Obat obt = obatCombo.getValue();
+        if (obt != null) {
+            hargaField.setText(String.valueOf(obt.getHarga_jual()));
+            stokField.setText(String.valueOf(obt.getStock()));
+        }
     }
-    
+
     @FXML
     void onmousepressed(MouseEvent event) {
         if (event.getClickCount() == 1) {
@@ -132,19 +144,36 @@ public class KeluarController implements Initializable{
 
     @FXML
     void batalaction(ActionEvent event) {
-         resetForm();
+        resetForm();
         resetButton2();
-       
+
     }
 
     @FXML
     void tambahaction(ActionEvent event) {
-     
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Obat Keluar");
+        if (validasi()) {
+            ObatKeluar obt = new ObatKeluar(
+                    obatCombo.getSelectionModel().getSelectedItem().getKode_obat(),
+                    Integer.parseInt(jumlahField.getText()),
+                    new Date()
+            );
+            if (obt.createObatKeluar()) {
+                alert.setContentText("Data Berhasil Disimpan");
+                alert.show();
+                setTableRoot();
+                resetForm();
+            }
+        } else {
+            alert.setContentText("Data Tidak Lengkap");
+            alert.show();
+        }
     }
 
     @FXML
     void hapusaction(ActionEvent event) {
-       ObatKeluar obt = tableView.getSelectionModel().getSelectedItem().getValue();
+        ObatKeluar obt = tableView.getSelectionModel().getSelectedItem().getValue();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Hapus Data Obat Keluar");
         alert.setHeaderText(null);
@@ -171,6 +200,34 @@ public class KeluarController implements Initializable{
 
     @FXML
     void ubahaction(ActionEvent event) {
-        
+        if (validasi()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Edit Data Obat Keluar");
+            ObatKeluar obt = tableView.getSelectionModel().getSelectedItem().getValue();
+            obt.setKode_obat(obatCombo.getValue().getKode_obat());
+            obt.setJumlah(Integer.parseInt(jumlahField.getText()));
+            alert.setHeaderText(null);
+            alert.setContentText("Apakah anda yakin untuk mengedit data obat keluar?");
+            Optional result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                if (obt.updateObatKeluar()) {
+                    Alert keluar = new Alert(Alert.AlertType.INFORMATION);
+                    keluar.setTitle("Data Obat Keluar");
+                    keluar.setHeaderText(null);
+                    keluar.setContentText("data berhasil di ubah");
+                    resetButton2();
+                    keluar.show();
+                    tableView.refresh();
+                }
+                resetForm();
+            } else {
+                alert.close();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Data Obat Keluar");
+            alert.setContentText("Data Tidak Lengkap");
+            alert.show();
+        }
     }
 }

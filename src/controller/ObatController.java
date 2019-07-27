@@ -57,6 +57,7 @@ public class ObatController implements Initializable {
         TreeTableColumn<Obat, Integer> kodeCol = new TreeTableColumn<>("Kode");
         TreeTableColumn<Obat, String> namaCol = new TreeTableColumn<>("Nama Obat");
         TreeTableColumn<Obat, String> jenisCol = new TreeTableColumn<>("Jenis");
+        TreeTableColumn<Obat, Integer> stockCol = new TreeTableColumn<>("Stok");
         TreeTableColumn<Obat, String> satCol = new TreeTableColumn<>("Satuan");
         TreeTableColumn<Obat, Integer> hargaBeliCol = new TreeTableColumn<>("Beli");
         TreeTableColumn<Obat, Integer> hargaJualCol = new TreeTableColumn<>("Jual");
@@ -64,13 +65,15 @@ public class ObatController implements Initializable {
         kodeCol.setCellValueFactory(param -> param.getValue().getValue().kodeProperty());
         namaCol.setCellValueFactory(param -> param.getValue().getValue().nama_obatProperty());
         jenisCol.setCellValueFactory(param -> param.getValue().getValue().jenis_obatProperty());
+        stockCol.setCellValueFactory(param -> param.getValue().getValue().stockProperty());
         satCol.setCellValueFactory(param -> param.getValue().getValue().satuanProperty());
         hargaBeliCol.setCellValueFactory(param -> param.getValue().getValue().harga_beliProperty());
         hargaJualCol.setCellValueFactory(param -> param.getValue().getValue().harga_jualProperty());
 
         kodeCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
         namaCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
-        jenisCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        jenisCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
+        stockCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
         satCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.1));
         hargaBeliCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         hargaJualCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
@@ -78,12 +81,18 @@ public class ObatController implements Initializable {
         tableView.getColumns().add(kodeCol);
         tableView.getColumns().add(namaCol);
         tableView.getColumns().add(jenisCol);
+        tableView.getColumns().add(stockCol);
         tableView.getColumns().add(satCol);
         tableView.getColumns().add(hargaBeliCol);
         tableView.getColumns().add(hargaJualCol);
         setTableRoot();
+        resetButton2();
     }
 
+    public void setData() {
+        setTableRoot();
+    }
+    
     private void setTableRoot() {
         ObservableList<Obat> obatOvList = FXCollections.observableArrayList(Obat.listFromDB());
         TreeItem<Obat> obatTreeItem = new RecursiveTreeItem<>(obatOvList, RecursiveTreeObject::getChildren);
