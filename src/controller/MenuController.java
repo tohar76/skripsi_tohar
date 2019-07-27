@@ -53,6 +53,7 @@ public class MenuController implements Initializable{
     AnchorPane tampilan4;
     AnchorPane tampilan5;
     
+    ObatController obatCtrl;
     MasukController masukCtrl;
     KeluarController keluarCtrl;
     
@@ -60,6 +61,7 @@ public class MenuController implements Initializable{
     void actionhandle(ActionEvent event) throws IOException {
         if (event.getSource() == dataobat){
             scrollpane.setContent(tampilan1);
+            obatCtrl.setData();
         }else if (event.getSource() == obatmasuk){
             scrollpane.setContent(tampilan2);
             masukCtrl.setData();
@@ -82,7 +84,10 @@ public class MenuController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            tampilan1 = FXMLLoader.load(getClass().getResource("/view/data obat.fxml"));
+            FXMLLoader fxml = new FXMLLoader();
+            fxml.setLocation(getClass().getResource("/view/data obat.fxml"));
+            tampilan1 = fxml.load();
+            obatCtrl = fxml.getController();
         } catch (IOException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }

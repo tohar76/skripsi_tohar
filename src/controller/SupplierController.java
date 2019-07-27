@@ -62,6 +62,7 @@ public class SupplierController implements Initializable {
         tableView.getColumns().add(alamatCol);
         tableView.getColumns().add(telfCol);
         setTableRoot();
+        resetButton2();
     }
 
     private void setTableRoot() {

@@ -3,9 +3,11 @@ package model;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import org.sql2o.Connection;
 
 public class ObatMasuk extends RecursiveTreeObject<ObatMasuk> {
@@ -24,15 +26,18 @@ public class ObatMasuk extends RecursiveTreeObject<ObatMasuk> {
         }
     }
 
-    public ObatMasuk(ObservableList<Obat> items, ObservableList<Supplier> items0, int parseInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static List<ObatMasuk> getObatMasuk(Obat obat) {
+        return listFromDB()
+                .stream()
+                .filter(obtMasuk -> obtMasuk.getKode_obat() == obat.getKode_obat())
+                .collect(Collectors.toList());
     }
 
     public boolean createObatMasuk() {
         try (Connection connection = DB.DB.sql2o.open()) {
             final String query = "INSERT INTO obatmasuk "
-                    + "(id_masuk,kode_obat,jumlah, id_supplier, tgl_expired, tgl_masuk) VALUE "
-                    + "(:id_masuk, :kode_obat,:jumlah, :id_supplier, :tgl_expired, :tgl_masuk)";
+                    + "(kode_obat,jumlah, id_supplier, tgl_expired, tgl_masuk) VALUE "
+                    + "(:kode_obat,:jumlah, :id_supplier, :tgl_expired, :tgl_masuk)";
             connection.createQuery(query).bind(this).executeUpdate();
             return connection.getResult() > 0;
         }
@@ -117,16 +122,16 @@ public class ObatMasuk extends RecursiveTreeObject<ObatMasuk> {
         return new SimpleObjectProperty(id_masuk);
     }
 
-    public ObjectProperty<Integer> kode_obatProperty() {
-        return new SimpleObjectProperty(kode_obat);
+    public StringProperty nama_obatProperty() {
+        return new SimpleStringProperty(Obat.getObat(this).getNama_obat());
     }
 
     public ObjectProperty<Integer> jumlahProperty() {
         return new SimpleObjectProperty(jumlah);
     }
 
-    public ObjectProperty<Integer> id_supplierProperty() {
-        return new SimpleObjectProperty(id_supplier);
+    public StringProperty nama_supplierProperty() {
+        return new SimpleStringProperty(Supplier.getSupplier(this).getNama_supplier());
     }
     
     public ObjectProperty<Date> tgl_expiredProperty() {
