@@ -48,25 +48,25 @@ public class KeluarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         TreeTableColumn<ObatKeluar, Integer> idCol = new TreeTableColumn<>("Id");
         TreeTableColumn<ObatKeluar, String> namaObatCol = new TreeTableColumn<>("Nama Obat");
-        TreeTableColumn<ObatKeluar, Integer> hrgCol = new TreeTableColumn<>("Harga");
+        //TreeTableColumn<ObatKeluar, Integer> hrgCol = new TreeTableColumn<>("Harga");
         TreeTableColumn<ObatKeluar, Integer> jumlahCol = new TreeTableColumn<>("Jumlah");
         TreeTableColumn<ObatKeluar, Date> tglCol = new TreeTableColumn<>("Tgl Keluar");
 
         idCol.setCellValueFactory(param -> param.getValue().getValue().id_keluarProperty());
         namaObatCol.setCellValueFactory(param -> param.getValue().getValue().nama_obatProperty());
-        hrgCol.setCellValueFactory(param -> param.getValue().getValue().hargaProperty());
+        //hrgCol.setCellValueFactory(param -> param.getValue().getValue().hargaProperty());
         jumlahCol.setCellValueFactory(param -> param.getValue().getValue().jumlahProperty());
         tglCol.setCellValueFactory(param -> param.getValue().getValue().tgl_keluarProperty());
 
         idCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         namaObatCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
-        hrgCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
+        //hrgCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         jumlahCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
         tglCol.prefWidthProperty().bind(tableView.prefWidthProperty().multiply(0.2));
 
         tableView.getColumns().add(idCol);
         tableView.getColumns().add(namaObatCol);
-        tableView.getColumns().add(hrgCol);
+        //tableView.getColumns().add(hrgCol);
         tableView.getColumns().add(jumlahCol);
         tableView.getColumns().add(tglCol);
 
@@ -181,7 +181,7 @@ public class KeluarController implements Initializable {
         Optional result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             Alert keluar = new Alert(Alert.AlertType.INFORMATION);
-            keluar.setTitle("Data Obat Keluar");
+             keluar.setTitle("Data Obat Keluar");
             keluar.setHeaderText(null);
             if (obt.deleteObatKeluar()) {
                 keluar.setContentText("data berhasil di hapus");

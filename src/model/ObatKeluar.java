@@ -105,9 +105,9 @@ public class ObatKeluar extends RecursiveTreeObject<ObatKeluar>{
         return new SimpleStringProperty(Obat.getObat(this).getNama_obat());
     }
     
-    public ObjectProperty<Integer> hargaProperty() {
-        return new SimpleObjectProperty(Obat.getObat(this).getHarga_jual());
-    }
+    //public ObjectProperty<Integer> hargaProperty() {
+    //    return new SimpleObjectProperty(Obat.getObat(this).getHarga_jual());
+    //}
 
     public ObjectProperty<Integer> jumlahProperty() {
         return new SimpleObjectProperty(jumlah);

@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ButtonBar?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KeluarController">
    <children>
-      <Label layoutX="34.0" layoutY="20.0" prefHeight="37.0" prefWidth="153.0" text="OBAT KELUAR">
+      <Label layoutX="34.0" layoutY="12.0" prefHeight="37.0" prefWidth="153.0" text="OBAT KELUAR">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="obatCombo" onAction="#pilihobataction"  layoutX="18.0"  layoutY="50.0" prefWidth="140.0"  promptText="Pilih Obat" />
-      <JFXTextField fx:id="hargaField" layoutX="18.0" layoutY="90.0" editable="false" promptText="Harga"/>
-      <JFXTextField fx:id="stokField" layoutX="18.0" layoutY="130.0" editable="false" promptText="Stok"/>
-      <JFXTextField fx:id="jumlahField" layoutX="18.0" layoutY="170.0" promptText="Masukkan Jumlah"/>
-      <JFXTreeTableView fx:id="tableView" onMousePressed="#onmousepressed"  layoutX="360.0" layoutY="-1.0" prefHeight="400.0" prefWidth="500.0" />
+      <JFXComboBox fx:id="obatCombo" layoutX="18.0" layoutY="50.0" onAction="#pilihobataction" prefWidth="140.0" promptText="Pilih Obat" />
+      <JFXTextField fx:id="hargaField" editable="false" labelFloat="true" layoutX="18.0" layoutY="90.0" promptText="Harga" />
+      <JFXTextField fx:id="stokField" editable="false" labelFloat="true" layoutX="18.0" layoutY="130.0" promptText="Stok" />
+      <JFXTextField fx:id="jumlahField" labelFloat="true" layoutX="18.0" layoutY="170.0" promptText="Masukkan Jumlah" />
+      <JFXTreeTableView fx:id="tableView" layoutX="360.0" layoutY="-1.0" onMousePressed="#onmousepressed" prefHeight="400.0" prefWidth="500.0" />
       <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
         <buttons>
-            <JFXButton fx:id="tambah" onAction="#tambahaction"  style="-fx-background-color: red;" text="Tambah" />
-            <JFXButton fx:id="ubah" onAction="#ubahaction"  style="-fx-background-color: red;" text="Ubah" />
-            <JFXButton fx:id="hapus" onAction="#hapusaction"  style="-fx-background-color: red;" text="Hapus" />
-            <JFXButton fx:id="batal" onAction="#batalaction"  style="-fx-background-color: red;" text="Batal" />
+            <JFXButton fx:id="tambah" onAction="#tambahaction" style="-fx-background-color: red;" text="Tambah" />
+            <JFXButton fx:id="ubah" onAction="#ubahaction" style="-fx-background-color: red;" text="Ubah" />
+            <JFXButton fx:id="hapus" onAction="#hapusaction" style="-fx-background-color: red;" text="Hapus" />
+            <JFXButton fx:id="batal" onAction="#batalaction" style="-fx-background-color: red;" text="Batal" />
         </buttons>
       </ButtonBar>
    </children>
