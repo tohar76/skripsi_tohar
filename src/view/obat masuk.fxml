@@ -24,11 +24,12 @@
       <JFXTreeTableView fx:id="tableView" layoutX="360.0" layoutY="-1.0" onMousePressed="#onmousepressed" prefHeight="400.0" prefWidth="500.0" />
       <ButtonBar layoutY="235.0" prefHeight="40.0" prefWidth="330.0">
         <buttons>
-            <JFXButton fx:id="tambah" onAction="#tambahaction" style="-fx-background-color: red;" text="Tambah" />
-            <JFXButton fx:id="ubah" onAction="#ubahaction" style="-fx-background-color: red;" text="Ubah" />
-            <JFXButton fx:id="hapus" onAction="#hapusaction" style="-fx-background-color: red;" text="Hapus" />
-            <JFXButton fx:id="batal" onAction="#batalaction" style="-fx-background-color: red;" text="Batal" />
+            <JFXButton fx:id="tambah" onAction="#tambahaction" style="-fx-background-color: #07bbf1;" text="Tambah" textFill="WHITE" />
+            <JFXButton fx:id="ubah" onAction="#ubahaction" style="-fx-background-color: #07bbf1;" text="Ubah" textFill="#fffefe" />
+            <JFXButton fx:id="hapus" onAction="#hapusaction" style="-fx-background-color: #07bbf1;" text="Hapus" textFill="#fcfafa" />
+            <JFXButton fx:id="batal" onAction="#batalaction" style="-fx-background-color: #07bbf1;" text="Batal" textFill="WHITE" />
         </buttons>
       </ButtonBar>
+      <JFXButton fx:id="print" layoutX="275.0" layoutY="16.0" onAction="#printlaporan" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #07bbf1;" text="Print" />
    </children>
 </AnchorPane>

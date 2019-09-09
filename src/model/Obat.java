@@ -42,7 +42,17 @@ public class Obat extends RecursiveTreeObject<Obat> {
                 .findFirst()
                 .orElse(null);
     }
+
+    public Obat(String nama_obat, String jenis_obat, String satuan, int harga_beli, int harga_jual) {
+       this.nama_obat = nama_obat;
+        this.jenis_obat = jenis_obat;
+        this.satuan = satuan;
+        this.harga_beli = harga_beli;
+        this.harga_jual = harga_jual;
+    }
+
     
+  
     public int getStock() {
         int countMasuk = ObatMasuk.getObatMasuk(this).stream().mapToInt(ObatMasuk::getJumlah).sum();
         int countKeluar = ObatKeluar.getObatKeluar(this).stream().mapToInt(ObatKeluar::getJumlah).sum();
@@ -52,12 +62,14 @@ public class Obat extends RecursiveTreeObject<Obat> {
     public boolean createObat() {
         try (Connection connection = DB.DB.sql2o.open()) {
             final String query = "INSERT INTO dataobat "
-                    + "(nama_obat,jenis_obat,satuan, harga_beli, harga_jual) VALUE "
-                    + "(:nama_obat, :jenis_obat,:satuan, :harga_beli, :harga_jual)";
+                    + "(nama_obat, jenis_obat, satuan, harga_beli, harga_jual) VALUE "
+                    + "(:nama_obat, :jenis_obat, :satuan, :harga_beli, :harga_jual)";
             connection.createQuery(query).bind(this).executeUpdate();
             return connection.getResult() > 0;
         }
     }
+   
+    
 
     public boolean deleteObat() {
         try (Connection connection = DB.DB.sql2o.open()) {
@@ -70,7 +82,7 @@ public class Obat extends RecursiveTreeObject<Obat> {
     public boolean updateObat() {
         try (Connection connection = DB.DB.sql2o.open()) {
             final String query = "UPDATE dataobat SET "
-                    + "nama_obat = :nama_obat, jenis_obat =:jenis_obat, "
+                    + "nama_obat = :nama_obat, jenis_obat =:jenis_obat,  "
                     + "satuan =:satuan, harga_beli=:harga_beli, harga_jual=:harga_jual "
                     + "WHERE kode_obat = :kode_obat";
             connection.createQuery(query).bind(this).executeUpdate();
@@ -78,13 +90,6 @@ public class Obat extends RecursiveTreeObject<Obat> {
         }
     }
 
-    public Obat(String nama_obat, String jenis_obat, String satuan, int harga_beli, int harga_jual) {
-        this.nama_obat = nama_obat;
-        this.jenis_obat = jenis_obat;
-        this.satuan = satuan;
-        this.harga_beli = harga_beli;
-        this.harga_jual = harga_jual;
-    }
 
     public int getKode_obat() {
         return kode_obat;
@@ -109,6 +114,7 @@ public class Obat extends RecursiveTreeObject<Obat> {
     public void setJenis_obat(String jenis_obat) {
         this.jenis_obat = jenis_obat;
     }
+    
 
     public String getSatuan() {
         return satuan;

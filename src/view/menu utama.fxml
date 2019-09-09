@@ -1,38 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
     <children>
-        <AnchorPane prefHeight="63.0" prefWidth="1015" style="-fx-background-color: #e11818;">
+        <AnchorPane prefHeight="63.0" prefWidth="1015" style="-fx-background-color: #0962fb;">
             <children>
-                <Label layoutX="93.0" prefHeight="47.0" prefWidth="455.0" text="Bidan Yanti Soetarno, Amd.Keb" textFill="#1e0101">
+                <Label layoutX="166.0" prefHeight="47.0" prefWidth="455.0" text="Bidan Yanti Soetarno, Amd.Keb" textFill="#fcf9f9">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
+               <effect>
+                  <Shadow color="#f8f6f6" height="3.97" radius="0.49250000000000005" width="0.0" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="SW_RESIZE" />
+               </cursor>
                 </Label>
-                <Label layoutX="101.0" layoutY="51.0" prefHeight="26.0" prefWidth="431.0" text="Jalan Kalisari Raya Kalisari, Pasar Rebo, Jakarta Timur" textFill="#110101">
+                <Label layoutX="174.0" layoutY="51.0" prefHeight="26.0" prefWidth="431.0" text="Jalan Kalisari Raya Kalisari, Pasar Rebo, Jakarta Timur" textFill="#fcf8f8">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
+               <effect>
+                  <Shadow color="#fcfcfc" height="6.17" radius="1.0425" width="0.0" />
+               </effect>
                 </Label>
+            <ImageView fitHeight="77.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="77.0" fitWidth="142.0" layoutX="1.0" layoutY="-1.0">
+               <image>
+                  <Image url="@../gambar/564d8c274433987b55926961c0aa2de5.jpg" />
+               </image>
+               <effect>
+                  <Shadow color="WHITE" height="0.0" radius="0.0" width="0.0" />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="142.0" layoutX="1.0" layoutY="-1.0">
+               <image>
+                  <Image url="@../gambar/564d8c274433987b55926961c0aa2de5.jpg" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
-        <VBox layoutX="-2.0" layoutY="76.0" prefHeight="424.0" prefWidth="143.0" spacing="20.0">
+        <VBox layoutX="-2.0" layoutY="79.0" prefHeight="424.0" prefWidth="143.0" spacing="20.0">
             <children>
-                <JFXButton fx:id="dataobat" onAction="#actionhandle" prefHeight="42.0" prefWidth="145.0" text="Data Obat" />
-                <JFXButton fx:id="obatmasuk" onAction="#actionhandle" prefHeight="42.0" prefWidth="143.0" text="Obat Masuk" />
-                <JFXButton fx:id="obatkeluar" onAction="#actionhandle" prefHeight="42.0" prefWidth="142.0" text="Obat Keluar" />
-                <JFXButton fx:id="datasupplier" onAction="#actionhandle" prefHeight="42.0" prefWidth="144.0" text="Data Supplier" />
-                <JFXButton fx:id="laporan" onAction="#actionhandle" prefHeight="42.0" prefWidth="142.0" text="Laporan" />
-                <JFXButton fx:id="logout" onAction="#actionhandle" prefHeight="42.0" prefWidth="148.0" text="Log Out" />
+                <JFXButton fx:id="dataobat" onAction="#actionhandle" prefHeight="42.0" prefWidth="145.0" style="-fx-background-color: #0962fb;" text="Data Obat" textFill="WHITE" />
+                <JFXButton fx:id="obatmasuk" onAction="#actionhandle" prefHeight="42.0" prefWidth="143.0" style="-fx-background-color: #0962fb;" text="Obat Masuk" textFill="WHITE" />
+                <JFXButton fx:id="obatkeluar" onAction="#actionhandle" prefHeight="42.0" prefWidth="142.0" style="-fx-background-color: #0962fb;" text="Obat Keluar" textFill="WHITE" />
+                <JFXButton fx:id="datasupplier" onAction="#actionhandle" prefHeight="42.0" prefWidth="144.0" style="-fx-background-color: #0962fb;" text="Data Supplier" textFill="WHITE" />
+            <JFXButton fx:id="logout" onAction="#actionhandle" prefHeight="42.0" prefWidth="142.0" style="-fx-background-color: #0962fb;" text="Log Out" textFill="WHITE" />
             </children>
         </VBox>
-        <ScrollPane fx:id="scrollpane" layoutX="140.0" layoutY="76.0" prefHeight="424.0" prefWidth="875.0" />
+        <ScrollPane fx:id="scrollpane" layoutX="140.0" layoutY="76.0" prefHeight="424.0" prefWidth="875.0" style="-fx-background-color: blue;" />
     </children>
 </AnchorPane>

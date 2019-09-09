@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import model.laporan;
 
 public class SupplierController implements Initializable {
 
@@ -39,6 +41,8 @@ public class SupplierController implements Initializable {
     private JFXButton hapus;
     @FXML
     private JFXButton batal;
+    @FXML
+    private JFXButton print;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -119,6 +123,11 @@ public class SupplierController implements Initializable {
     void batalaction(ActionEvent event) {
         resetForm();
         resetButton2();
+    }
+    
+    @FXML
+    void printlaporan(ActionEvent event) throws IOException {
+        laporan.daftar_supplier();
     }
 
     @FXML

@@ -16,11 +16,9 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
@@ -96,7 +94,7 @@ public class laporan {
                 .setFontSize(12)
                 .addCell(cellNoBorder(image.setAutoScale(true)))
                 .addCell(
-                        cellNoBorder("BIDAN YANTI SOETARNO\n Jalan Raya Kalisari No. 63 Kalisari Pasar Rebo Jakarta Timur \n Telepon : 081293950637\n \n \n" +judul+ "\n \n")
+                        cellNoBorder("BIDAN YANTI SOETARNO\n Jalan Raya Kalisari No. 49 Kalisari Pasar Rebo Jakarta Timur \n Telepon : 081293950637\n \n \n" +judul+ "\n \n")
                                 .setTextAlignment(TextAlignment.CENTER)
                                 .setHorizontalAlignment(HorizontalAlignment.CENTER)
                                 .setVerticalAlignment(VerticalAlignment.MIDDLE));               
@@ -137,12 +135,13 @@ public class laporan {
                 new UnitValue(UnitValue.PERCENT, 50)}, true)
                 ;
    
-            Table obatTable = new Table(8);
+            Table obatTable = new Table(7);
             obatTable.setWidth(520);
             obatTable.addHeaderCell(cell("Kode Obat"));
             obatTable.addHeaderCell(cell("Nama Obat"));
             obatTable.addHeaderCell(cell("Jenis Obat"));
             obatTable.addHeaderCell(cell("Stok"));
+            obatTable.addHeaderCell(cell("Satuan"));
             obatTable.addHeaderCell(cell("Harga Beli"));
             obatTable.addHeaderCell(cell("Harga Jual"));
             
@@ -150,6 +149,7 @@ public class laporan {
                 obatTable.addCell(cell(String.valueOf(Obat.getKode_obat())));
                 obatTable.addCell(cell(Obat.getNama_obat()));
                 obatTable.addCell(cell(Obat.getJenis_obat()));
+                obatTable.addCell(cell(String.valueOf(Obat.getStock())));
                 obatTable.addCell(cell(String.valueOf(Obat.getSatuan())));
                 obatTable.addCell(cell(String.valueOf(Obat.getHarga_beli())));
                 obatTable.addCell(cell(String.valueOf(Obat.getHarga_jual())));
@@ -253,7 +253,7 @@ public class laporan {
                 new UnitValue(UnitValue.PERCENT, 50)}, true)
                 ;
             
-            Table supplierTable = new Table(6);
+            Table supplierTable = new Table(4);
             supplierTable.setWidth(520);
             supplierTable.addHeaderCell(cell("Id Supplier"));
             supplierTable.addHeaderCell(cell("Nama Supplier"));
@@ -274,6 +274,7 @@ public class laporan {
         }
         
     }
+    
         
     private static Cell cellNoBorder(String text) {
         return new Cell()

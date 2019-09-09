@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  * @author Tohar
  */
 public class MenuController implements Initializable{
-    @FXML
+     @FXML
     private JFXButton dataobat;
 
     @FXML
@@ -39,9 +39,6 @@ public class MenuController implements Initializable{
     private JFXButton datasupplier;
 
     @FXML
-    private JFXButton laporan;
-
-    @FXML
     private JFXButton logout;
 
     @FXML
@@ -51,7 +48,6 @@ public class MenuController implements Initializable{
     AnchorPane tampilan2;
     AnchorPane tampilan3;
     AnchorPane tampilan4;
-    AnchorPane tampilan5;
     
     ObatController obatCtrl;
     MasukController masukCtrl;
@@ -70,8 +66,6 @@ public class MenuController implements Initializable{
             keluarCtrl.setData();
         }else if (event.getSource() == datasupplier){
             scrollpane.setContent(tampilan4);
-        }else if (event.getSource() == laporan){
-            scrollpane.setContent(tampilan5);
         }else if(event.getSource() == logout){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
             Parent parent = loader.load();
@@ -109,11 +103,6 @@ public class MenuController implements Initializable{
         }
         try {
             tampilan4 = FXMLLoader.load(getClass().getResource("/view/data supplier.fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            tampilan5 = FXMLLoader.load(getClass().getResource("/view/laporan.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
         }

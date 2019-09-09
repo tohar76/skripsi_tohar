@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <Label layoutX="378.0" layoutY="151.0" text="LOGIN" textFill="#d34747">
+      <Label layoutX="378.0" layoutY="151.0" text="LOGIN" textFill="#0d23c9">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -21,14 +21,14 @@
             <Image url="@../gambar/564d8c274433987b55926961c0aa2de5.jpg" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="90.0" prefWidth="600.0" style="-fx-background-color: #e11818;">
+      <AnchorPane prefHeight="90.0" prefWidth="600.0" style="-fx-background-color: blue;">
          <children>
-            <Label layoutX="209.0" layoutY="14.0" prefHeight="47.0" prefWidth="164.0" text="Bidan Yanti" textFill="#1e0101">
+            <Label layoutX="78.0" layoutY="14.0" prefHeight="47.0" prefWidth="440.0" text="Bidan Yanti Soetarno Amd.Keb" textAlignment="CENTER" textFill="#f8f6f6">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="85.0" layoutY="63.0" prefHeight="26.0" prefWidth="431.0" text="Jalan Kalisari Raya Kalisari, Pasar Rebo, Jakarta Timur" textFill="#110101">
+            <Label layoutX="85.0" layoutY="63.0" prefHeight="26.0" prefWidth="431.0" text="Jalan Kalisari Raya Kalisari, Pasar Rebo, Jakarta Timur" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -37,11 +37,14 @@
       </AnchorPane>
       <JFXTextField fx:id="username" labelFloat="true" layoutX="355.0" layoutY="210.0" promptText="Masukan Username" />
       <JFXPasswordField fx:id="password" labelFloat="true" layoutX="355.0" layoutY="257.0" promptText="Masukan Password" />
-      <JFXButton fx:id="login" layoutX="352.0" layoutY="305.0" onAction="#actionLogin" style="-fx-background-color: red;" text="Login">
+      <JFXButton fx:id="login" layoutX="352.0" layoutY="305.0" onAction="#actionLogin" style="-fx-background-color: blue;" text="Login" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="batal" layoutX="446.0" layoutY="305.0" onAction="#actionBatal" style="-fx-background-color: red;" text="Batal" />
+      <JFXButton fx:id="batal" layoutX="446.0" layoutY="305.0" onAction="#actionBatal" style="-fx-background-color: blue;" text="Batal" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></JFXButton>
    </children>
 </AnchorPane>

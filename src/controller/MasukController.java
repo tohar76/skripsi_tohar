@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -26,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import model.Obat;
 import model.ObatMasuk;
 import model.Supplier;
+import model.laporan;
 
 public class MasukController implements Initializable {
 
@@ -47,7 +49,9 @@ public class MasukController implements Initializable {
     private JFXButton hapus;
     @FXML
     private JFXButton batal;
-
+    @FXML
+    private JFXButton print;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TreeTableColumn<ObatMasuk, Integer> idCol = new TreeTableColumn<>("Id");
@@ -115,6 +119,11 @@ public class MasukController implements Initializable {
         batal.setDisable(true);
     }
 
+    @FXML
+    void printlaporan(ActionEvent event) throws IOException {
+        laporan.daftar_masuk();
+    }
+    
     void ambilData() {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
             ObatMasuk obtMasuk = tableView.getSelectionModel().getSelectedItem().getValue();

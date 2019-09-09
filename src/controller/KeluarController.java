@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
 import model.Obat;
 import model.ObatKeluar;
+import model.laporan;
 
 public class KeluarController implements Initializable {
 
@@ -43,6 +45,8 @@ public class KeluarController implements Initializable {
     private JFXButton hapus;
     @FXML
     private JFXButton batal;
+    @FXML
+    private JFXButton print;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -147,6 +151,11 @@ public class KeluarController implements Initializable {
         resetForm();
         resetButton2();
 
+    }
+    
+      @FXML
+    void printlaporan(ActionEvent event) throws IOException {
+        laporan.daftar_keluar();
     }
 
     @FXML
